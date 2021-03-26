@@ -27,13 +27,7 @@ async function handleNewDeploymentStatus(payload) {
   await axios.post('https://mm.devdavi.com.br/hooks/h9gn9pjse3f49n1gwgte4md8me', {
     username: 'github-deployments',
     icon_url: 'https://static.vecteezy.com/system/resources/previews/001/951/982/non_2x/cute-little-boy-in-rocket-avatar-character-free-vector.jpg',
-    text: `#### ${repository.name} - Deployment status updated :rocket:\n
-      Preview: ${deployment_status.target_url}\n
-      Status: ${deployment_status.state}\n
-      Deployment: ${deployment.url}\n
-      Description: ${deployment_status.description}\n
-      Environment: ${deployment.environment}\n
-      Created by ${creator.login}`
+    text: `#### [${deployment_status.state}] ${repository.name} - Deployment status updated :rocket:\nPreview: ${deployment_status.target_url}\nDeployment: ${deployment.url}\nDescription: ${deployment_status.description}\nEnvironment: ${deployment.environment}\nCreated by ${creator.login}`
   });
 }
 
