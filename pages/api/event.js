@@ -5,6 +5,19 @@ const allowedEvents = [
   'deployment_status'
 ];
 
+function getStateIcon(state) {
+  switch (state) {
+    case 'pending':
+      return ':hourglass_flowing_sand:';
+    case 'success':
+      return ':white_check_mark:';
+    case 'failure':
+      return 'x';
+    case 'error':
+      return 'x';
+  }
+}
+
 async function handleNewDeployment(payload) {
   const { deployment, repository } = payload;
   const { creator } = deployment;
@@ -12,11 +25,7 @@ async function handleNewDeployment(payload) {
   await axios.post('https://mm.devdavi.com.br/hooks/h9gn9pjse3f49n1gwgte4md8me', {
     username: 'github-deployments',
     icon_url: 'https://static.vecteezy.com/system/resources/previews/001/951/982/non_2x/cute-little-boy-in-rocket-avatar-character-free-vector.jpg',
-    text: `#### ${repository.name} - New deployment :rocket:\n
-      Deployment: ${deployment.url}\n
-      Description: ${deployment.description}\n
-      Environment: ${deployment.environment}\n
-      Created by ${creator.login}`
+    text: `**${repository.name} - New deployment** :rocket:\nDeployment: ${deployment.url}\nDescription: ${deployment.description}\nEnvironment: ${deployment.environment}\nCreated by ${creator.login}`
   });
 }
 
@@ -27,7 +36,7 @@ async function handleNewDeploymentStatus(payload) {
   await axios.post('https://mm.devdavi.com.br/hooks/h9gn9pjse3f49n1gwgte4md8me', {
     username: 'github-deployments',
     icon_url: 'https://static.vecteezy.com/system/resources/previews/001/951/982/non_2x/cute-little-boy-in-rocket-avatar-character-free-vector.jpg',
-    text: `#### [${deployment_status.state}] ${repository.name} - Deployment status updated :rocket:\nPreview: ${deployment_status.target_url}\nDeployment: ${deployment.url}\nDescription: ${deployment_status.description}\nEnvironment: ${deployment.environment}\nCreated by ${creator.login}`
+    text: `**${getStateIcon(deployment_status.state)} ${repository.name} - Deployment status updated**\nPreview: ${deployment_status.target_url}\nDeployment: ${deployment.url}\nDescription: ${deployment_status.description}\nEnvironment: ${deployment.environment}\nCreated by ${creator.login}`
   });
 }
 
