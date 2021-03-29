@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const WEBHOOK_URL = 'https://chat.spiry.ro/hooks/c4qtci7b5pdb8gwaf8n6iohgya';
+const ICON_EMOJI = 'robot';
+const USERNAME = 'Github Deployments';
 
 const allowedEvents = [
   'deployment',
@@ -22,26 +24,30 @@ function getStateIcon(state) {
   }
 }
 
+async function sendMessage(text) {
+  await axios.post(WEBHOOK_URL, {
+    username: USERNAME,
+    icon_emoji: ICON_EMOJI,
+    text
+  });
+}
+
 async function handleNewDeployment(payload) {
   const { deployment, repository } = payload;
   const { creator } = deployment;
 
-  await axios.post(WEBHOOK_URL, {
-    username: 'github-deployments',
-    icon_url: 'https://static.vecteezy.com/system/resources/previews/001/951/982/non_2x/cute-little-boy-in-rocket-avatar-character-free-vector.jpg',
-    text: `**:rocket: ${repository.name} - New deployment**\nDeployment: ${deployment.url}\nDescription: ${deployment.description || ''}\nEnvironment: ${deployment.environment}\nCreated by: ${creator.login}`
-  });
+  const text = `**:rocket: <${repository.html_url}|${repository.name}> - New deployment**\nDescription: ${deployment.description || ''}\nEnvironment: ${deployment.environment}\nCreated by: ${creator.login}`;
+
+  await sendMessage(text);
 }
 
 async function handleNewDeploymentStatus(payload) {
   const { deployment, deployment_status, repository } = payload;
   const { creator } = deployment_status;
 
-  await axios.post(WEBHOOK_URL, {
-    username: 'github-deployments',
-    icon_url: 'https://static.vecteezy.com/system/resources/previews/001/951/982/non_2x/cute-little-boy-in-rocket-avatar-character-free-vector.jpg',
-    text: `**${getStateIcon(deployment_status.state)} ${repository.name} - Deployment status updated**\nPreview: ${deployment_status.target_url}\nDeployment: ${deployment.url}\nDescription: ${deployment_status.description || ''}\nEnvironment: ${deployment.environment}\nCreated by: ${creator.login}${errorStates.includes(deployment_status.state) ? '\n<!channel> Something went wrong! Please someone take a look at the deployment results.' : ''}`
-  });
+  const text = `**${getStateIcon(deployment_status.state)} <${repository.html_url}|${repository.name}> - Deployment status updated**\nPreview: ${deployment_status.target_url}\nDescription: ${deployment_status.description || ''}\nEnvironment: ${deployment.environment}\nCreated by: ${creator.login}${errorStates.includes(deployment_status.state) ? '\n<!channel> Something went wrong! Please someone take a look at the deployment results.' : ''}`;
+
+  await sendMessage(text);
 }
 
 export default async (req, res) => {
@@ -53,14 +59,20 @@ export default async (req, res) => {
     return res.status(200).end();
   }
 
-  switch (event) {
-    case 'deployment':
-      await handleNewDeployment(body);
-      break;
-    case 'deployment_status':
-      await handleNewDeploymentStatus(body);
-      break;
-  }
+  console.log(`Handling event: ${event}`);
 
-  res.status(200).end();
+  try {
+    switch (event) {
+      case 'deployment':
+        await handleNewDeployment(body);
+        break;
+      case 'deployment_status':
+        await handleNewDeploymentStatus(body);
+        break;
+    }
+  
+    res.status(200).end();
+  } catch (error) {
+    res.status(500).json(error.message).env();
+  }
 }
