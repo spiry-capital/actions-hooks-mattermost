@@ -18,9 +18,9 @@ function getStateIcon(state) {
     case 'success':
       return ':white_check_mark:';
     case 'failure':
-      return 'x';
+      return ':x:';
     case 'error':
-      return 'x';
+      return ':x:';
   }
 }
 
