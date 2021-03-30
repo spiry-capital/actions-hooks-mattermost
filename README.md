@@ -16,8 +16,13 @@ This is a simple webhook for logging deployment events from GitHub in a Mattermo
 - Send text message when a deployment status changes
 - If the build fails, it will tag the channel (@channel) and the users will receive notification about the failure, so people can safely mute the channel and receive only these notifications
 
-## Deploy it
-This code was deployed using Vercel
+## Usage
+- Create a "Incoming webhook" in Mattermost > Integrations, configure what you want and copy the generated URL
+- Deploy the code (we recommend using Vercel and the link below, its free) and set the env "WEBHOOK_URL" with your Mattermost hook URL
+- Create a GitHub webhook in your organization and/or in a single repository using this URL: `"https://{YOUR_DEPLOYMENT}/api/event"`
+- Choose Content type: application/json
+- Still under webhook creation, choose "Let me select individual events." and check "Deployment statuses" and "Deployments". Any other event will just do nothing
+- Enjoy the features :)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fspiry-capital%2Factions-hooks-mattermost&env=WEBHOOK_URL&envDescription=WEBHOOK_URL%3A%20The%20%22Incoming%20Webhook%22%20URL%20from%20Mattermost&project-name=actions-hooks-mattermost&repository-name=actions-hooks-mattermost)
 
