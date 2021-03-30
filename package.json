@@ -1,7 +1,16 @@
 {
   "name": "actions-hooks-mattermost",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "name": "Spiry Capital",
+    "url": "https://spiry.ro"
+  },
+  "homepage": "https://github.com/spiry-capital/actions-hooks-mattermost",
+  "repository": {
+    "url": "https://github.com/spiry-capital/actions-hooks-mattermost"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
