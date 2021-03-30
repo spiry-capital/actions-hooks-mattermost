@@ -4,7 +4,7 @@
 </p>
 
 ## About
-This is simple webhook for logging deployment events from GitHub in a Mattermost channel. It will log when the deployment begins and when the deployment status change. It fits perfect for our team as we use GitHub actions for CI/CD and we wanted a channel with every log so everyone can see whats happening with the builds.
+This is a simple webhook for logging deployment events from GitHub in a Mattermost channel. It will log when the deployment begins and when the deployment status change. It fits perfect for our team as we use GitHub actions for CI/CD and we wanted a channel with every log so everyone can see whats happening with the builds.
 
 ## Screenshot
 <p align="center">
