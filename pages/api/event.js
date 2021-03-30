@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const WEBHOOK_URL = 'https://chat.spiry.ro/hooks/c4qtci7b5pdb8gwaf8n6iohgya';
+const { WEBHOOK_URL } = process.env;
 const ICON_EMOJI = 'robot';
 const USERNAME = 'Github Deployments';
 
