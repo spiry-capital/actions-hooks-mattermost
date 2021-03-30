@@ -1,34 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p>
+  <h3 align="center">GitHub deplyment hooks for Mattermost</h3>
+  <h5 align="center">Powered by NextJS API functions</h5>
+</p>
 
-## Getting Started
+## About
+This is simple webhook for logging deployment events from GitHub in a Mattermost channel. It will log when the deployment begins and when the deployment status change. It fits perfect for our team as we use GitHub actions for CI/CD and we wanted a channel with every log so everyone can see whats happening with the builds.
 
-First, run the development server:
+## Features
+- Send text message when a deployment starts
+- Send text message when a deployment status changes
+- If the build fails, it will tag the channel (@channel) and the users will receive notification about the failure, so people can safely mute the channel and receive only these notifications
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Deploy it
+This code was deployed using Vercel.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fspiry-capital%2Factions-hooks-mattermost&env=WEBHOOK_URL&envDescription=WEBHOOK_URL%3A%20The%20%22Incoming%20Webhook%22%20URL%20from%20Mattermost&project-name=actions-hooks-mattermost&repository-name=actions-hooks-mattermost)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+This repository is under MIT license
